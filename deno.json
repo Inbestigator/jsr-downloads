@@ -1,6 +1,7 @@
 {
   "name": "@inbestigator/saves",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
-  "exports": "./mod.ts"
+  "exports": "./mod.ts",
+  "include": ["mod.ts", "README.md", "deno.json"]
 }
