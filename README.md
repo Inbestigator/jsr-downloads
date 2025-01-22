@@ -5,5 +5,5 @@ Quickly check the download count for a JSR package.
 ## Usage
 
 ```sh
-deno -A jsr:@inbestigator/saves @scope/name
+deno -N jsr:@inbestigator/saves @scope/name
 ```
