@@ -9,7 +9,6 @@ if (!scope || !name) {
 }
 
 fetchDownloads(scope, name);
-
 async function fetchDownloads(scope: string, name: string) {
   const response = await fetch(
     `https://api.jsr.io/scopes/${scope}/packages/${name}/downloads`,
@@ -20,9 +19,22 @@ async function fetchDownloads(scope: string, name: string) {
     exit(1);
   }
 
-  const total = (await response.json()).total.map((d: { count: number }) =>
-    d.count
-  ).reduce(
+  const data = await response.json();
+  if (
+    !(typeof data === "object" && data !== null &&
+      (Array.isArray(data.total) &&
+        data.total.every(
+          (
+            item: { count: number },
+          ) => (typeof item === "object" && item !== null &&
+            (typeof item.count === "number")),
+        )))
+  ) {
+    console.error("Invalid response");
+    exit(1);
+  }
+
+  const total = data.total.map((d: { count: number }) => d.count).reduce(
     (a: number, b: number) => a + b,
     0,
   );
